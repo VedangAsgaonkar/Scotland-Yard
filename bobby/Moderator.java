@@ -22,6 +22,9 @@ public class Moderator implements Runnable{
 				2) one needs a permit to modify thread info
 
 				*/
+
+				board.moderatorEnabler.acquire();
+				board.threadInfoProtector.acquire();
                                           
                                              
 
@@ -44,17 +47,19 @@ public class Moderator implements Runnable{
 				//base case
 				
 				if (this.board.embryo){
-					                              
-                                        
-                                   
+					
+                    board.playingThreads = board.totalThreads;                    
+					board.moderatorEnabler.release();
+					board.threadInfoProtector.release();             
                                               
 					continue;
 				}
 				
-				
+				board.totalThreads -= board.quitThreads;
 				//find out how many newbies
-				int newbies = ;
-
+				int newbies = 
+				// newbies : N, Q 
+				// total = playing - quit + newbies
 
 				/*
 				If there are no threads at all, it means Game Over, and there are no 
@@ -64,12 +69,13 @@ public class Moderator implements Runnable{
 				Thus, the moderator's job will be done, and this thread can terminate.
 				As good practice, we will release the "lock" we held. 
 				*/
-
-				                                  
-                                              
-            
-     
-				
+				if(board.totalThreads==0)
+				{
+					board.moderatorEnabler.release();
+					board.threadInfoProtector.release();
+					return;
+				}                                         
+           
 				/* 
 				If we have come so far, the game is afoot.
 
@@ -81,6 +87,10 @@ public class Moderator implements Runnable{
 				Release permits for threads to play, and the permit to modify thread info
 				*/
 
+				board.quitThreads = 0;
+				board.moderatorEnabler.release();
+				board.threadInfoProtector.release();
+				
 				                                                    
                                
     

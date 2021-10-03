@@ -6,73 +6,69 @@ import java.util.*;
 
 import java.util.concurrent.Semaphore;
 
+import jdk.internal.module.IllegalAccessLogger.Mode;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
-public class ScotlandYard implements Runnable{
+public class ScotlandYard implements Runnable {
 
 	/*
-		this is a wrapper class for the game.
-		It just loops, and runs game after game
-	*/
+	 * this is a wrapper class for the game. It just loops, and runs game after game
+	 */
 
 	public int port;
 	public int gamenumber;
 
-	public ScotlandYard(int port){
+	public ScotlandYard(int port) {
 		this.port = port;
 		this.gamenumber = 0;
 	}
 
-	public void run(){
-		while (true){
+	public void run() {
+		while (true) {
 			Thread tau = new Thread(new ScotlandYardGame(this.port, this.gamenumber));
 			tau.start();
-			try{
+			try {
 				tau.join();
-			}
-			catch (InterruptedException e){
+			} catch (InterruptedException e) {
 				return;
 			}
 			this.gamenumber++;
 		}
 	}
 
-	public class ScotlandYardGame implements Runnable{
+	public class ScotlandYardGame implements Runnable {
 		private Board board;
 		private ServerSocket server;
 		public int port;
 		public int gamenumber;
 		private ExecutorService threadPool;
 
-		public ScotlandYardGame(int port, int gamenumber){
+		public ScotlandYardGame(int port, int gamenumber) {
 			this.port = port;
 			this.board = new Board();
 			this.gamenumber = gamenumber;
-			try{
+			try {
 				this.server = new ServerSocket(port);
 				System.out.println(String.format("Game %d:%d on", port, gamenumber));
 				server.setSoTimeout(5000);
-			}
-			catch (IOException i) {
+			} catch (IOException i) {
 				return;
 			}
 			this.threadPool = Executors.newFixedThreadPool(10);
 		}
-
 
 		public void run(){
 
 			try{
 			
 				//INITIALISATION: get the game going
-
+				
 				
 
 				Socket socket = null;
-				boolean fugitiveIn;
+				boolean fugitiveIn = false;
 				
 				/*
 				listen for a client to play fugitive, and spawn the moderator.
@@ -80,28 +76,34 @@ public class ScotlandYard implements Runnable{
 				here, it is actually ok to edit this.board.dead, because the game hasn't begun
 				*/
 				
-				do{
-			                    
-          
-                                    
-       
-                                       
-                         
-               
+				do{			        					
+                    try{
+						socket = server.accept();
+						fugitiveIn = true;
+						board.installPlayer(-1);
+					}
+					catch (IOException ex){
+						threadPool.shutdown();
+					}                                  
+                       
+					// dekhte
       
 				} while (!fugitiveIn);
 				
 				System.out.println(this.gamenumber);
 
 				// Spawn a thread to run the Fugitive
-                                             
+				ServerThread fugitiveThread = new ServerThread(board, -1, socket, port, gamenumber);
+				threadPool.execute(fugitiveThread);
+				
                                  
                             
                                                                                                   
-                                             
+                                        
 
 				// Spawn the moderator
-                                                  
+                Moderator moderator = new Moderator(board);
+				threadPool.execute(moderator);                                 
                 
 				while (true){
 					/*
@@ -110,15 +112,16 @@ public class ScotlandYard implements Runnable{
 					*/
 
 					try {
-
+						socket = server.accept();
 					} 
 					catch (SocketTimeoutException t){
-                                               
-                            
-                                                
-             
-       
-                                               
+                        if(!board.dead){
+
+						} 
+						else{
+							break;
+						}       
+                                             
 						continue;
 					}
 					
@@ -132,6 +135,25 @@ public class ScotlandYard implements Runnable{
 
 					don't forget to release lock when done!
 					*/
+
+					try{
+						board.threadInfoProtector.acquire();
+						if(board.dead){
+							break;
+						}
+						if(board.totalThreads==6){
+							continue;
+						}
+						threadPool.execute(new ServerThread(board, board.getAvailableID(), socket, port, gamenumber));
+                        // board.installPlayer(board.getAvailableID());
+						board.totalThreads ++ ;
+                        board.threadInfoProtector.release();
+					}
+					catch(InterruptedException e){
+
+					}
+
+					
 					                                         
                           
                      
@@ -175,11 +197,10 @@ public class ScotlandYard implements Runnable{
 			
 		}
 
-		
 	}
 
 	public static void main(String[] args) {
-		for (int i=0; i<args.length; i++){
+		for (int i = 0; i < args.length; i++) {
 			int port = Integer.parseInt(args[i]);
 			Thread tau = new Thread(new ScotlandYard(port));
 			tau.start();
