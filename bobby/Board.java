@@ -89,7 +89,7 @@ public class Board{
 		this.dead = true;
 		this.embryo = true;
 
-		this.countProtector = new Semaphore(1); //mutex for count
+		this.countProtector = new Semaphore(1); //mutex for count : to be used whenever a thread modifies count like a lock
 		this.barrier1 = new Semaphore(0); //permits for first part of cyclic barrier
 		this.barrier2 = new Semaphore(0); //permits for second part of cyclic barrier
 
