@@ -1,21 +1,11 @@
-Welcome. You play Detective 2 in Game 5000:2. You start on square 0. Make a move, and wait for feedback
-Move 1; Detective 2; Play; Detectives on 34, 3, 8, -1, -1
-Move 2; Detective 2; Play; Detectives on 33, 1, 9, -1, -1
-Move 3; Detective 2; Play; Detectives on -1, 1, 15, -1, -1; Fugitive on 9
-Move 4; Detective 2; Play; Detectives on -1, 6, 15, -1, -1
-Move 5; Detective 2; Play; Detectives on -1, 7, 8, -1, -1
-Move 6; Detective 2; Play; Detectives on -1, 31, 24, -1, -1
-Move 7; Detective 2; Play; Detectives on -1, 31, 56, -1, -1
-Move 8; Detective 2; Play; Detectives on -1, 39, 61, -1, -1; Fugitive on 26
-Move 9; Detective 2; Play; Detectives on -1, 55, 58, -1, -1
-Move 10; Detective 2; Play; Detectives on -1, 55, 18, -1, -1
-Move 11; Detective 2; Play; Detectives on -1, 47, 17, -1, -1
-Move 12; Detective 2; Play; Detectives on -1, 43, 57, -1, -1
-Move 13; Detective 2; Play; Detectives on -1, 42, 61, -1, -1; Fugitive on 10
-Move 14; Detective 2; Play; Detectives on -1, 2, 57, -1, -1
-Move 15; Detective 2; Play; Detectives on -1, 10, 41, -1, -1
-Move 16; Detective 2; Play; Detectives on -1, 9, 44, -1, -1
-Move 17; Detective 2; Play; Detectives on -1, 13, 12, -1, -1
-Move 18; Detective 2; Play; Detectives on -1, 29, 12, -1, -1; Fugitive on 41
-Move 19; Detective 2; Play; Detectives on -1, 21, 12, -1, -1
-Move 20; Detective 2; Victory; Detectives on -1, 37, 9, -1, -1; Fugitive on 37
+Welcome. You play Detective 0 in Game 5000:25. You start on square 0. Make a move, and wait for feedback
+Move 1; Detective 0; Play; Detectives on 5, -1, -1, -1, -1
+Move 2; Detective 0; Play; Detectives on 3, 4, -1, -1, -1
+Move 3; Detective 0; Play; Detectives on 19, 5, -1, -1, -1; Fugitive on 60
+Move 4; Detective 0; Play; Detectives on 20, 53, 3, -1, -1
+Move 5; Detective 0; Play; Detectives on 20, 49, 0, 0, -1
+Move 6; Detective 0; Play; Detectives on 23, 41, 32, 0, -1
+Move 7; Detective 0; Play; Detectives on 39, 40, 35, 24, 16
+Move 8; Detective 0; Play; Detectives on 33, 47, 32, 48, 20; Fugitive on 60
+Move 9; Detective 0; Play; Detectives on 38, 39, 32, 51, 16
+Move 10; Detective 0; Victory; Detectives on 6, 37, 34, 51, 24; Fugitive on -1

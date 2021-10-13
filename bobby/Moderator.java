@@ -48,12 +48,24 @@ public class Moderator implements Runnable{
 				
 				if (this.board.embryo){
 					board.registration.release();
+					board.playingThreads = 1;
 					board.threadInfoProtector.release();                                                
 					continue;
 				}
 				
 				//find out how many newbies
 				int newbies = board.totalThreads-board.playingThreads+board.quitThreads;
+
+				System.out.println("+++++++++++++");
+				System.out.println("Total threads : " + board.totalThreads);
+				System.out.println("Playing threads : " + board.playingThreads);
+				System.out.println("Quit threads : " + board.quitThreads);
+				System.out.println("Newbie threads : " + newbies);
+				System.out.println("+++++++++++++");
+
+				// -1 3 
+				
+
 
 				/*
 				If there are no threads at all, it means Game Over, and there are no 
@@ -63,7 +75,7 @@ public class Moderator implements Runnable{
 				Thus, the moderator's job will be done, and this thread can terminate.
 				As good practice, we will release the "lock" we held. 
 				*/
-				if(board.totalThreads==0 || board.dead)
+				if(board.totalThreads==0)
 				{
 					board.threadInfoProtector.release();
 					return;

@@ -104,6 +104,7 @@ public class ServerThread implements Runnable {
 				if (this.id == -1 && !this.registered) {
 					board.registration.acquire();
 					board.installPlayer(id);
+					System.out.println("Fugitive registered");
 					this.registered = true;
 					board.moderatorEnabler.release();
 					continue;
@@ -124,10 +125,10 @@ public class ServerThread implements Runnable {
 				 * 
 				 * After that, say goodbye to the client if client_quit
 				 */
-				board.reentry.acquire();
 				String cmd = "";
 				try {
 					cmd = input.readLine();
+					// System.out.println(cmd + ", " + id);
 
 				} catch (IOException i) {
 					// set flags
@@ -142,7 +143,7 @@ public class ServerThread implements Runnable {
 				if (cmd == null) {
 					// rage quit (this would happen if buffer is closed due to SIGINT (Ctrl+C) from
 					// Client), set flags
-					quit_while_reading = true;
+					client_quit = true;
 					quit = true;
 					// release everything socket related
 					input.close();
@@ -188,21 +189,31 @@ public class ServerThread implements Runnable {
 				 * 
 				 * Note that installation of a Fugitive sets embryo to false
 				 */
+				
 				if (!this.registered) {
 					if (!board.dead) {
-						board.registration.acquire();
-						board.installPlayer(id);
-						this.registered = true;
+						if(!board.embryo){
+							board.registration.acquire();
+							board.installPlayer(id);
+							System.out.println("Detective registered");
+							this.registered = true;
+						}
+						else{
+							continue;
+						}
+						
 					} else {
 						input.close();
 						output.close();
 						socket.close();
 						quit = true;
-						client_quit = true;
+						quit_while_reading = true;
 					}
 
 				}
 				
+
+				board.reentry.acquire();
 
 				/*
 				 * _______________________________________________________________________________________
@@ -212,7 +223,7 @@ public class ServerThread implements Runnable {
 				 * else, erase the player
 				 */
 
-				if (!client_quit) {
+				if (!quit) {
 					if (id == -1) {
 						board.moveFugitive(target);
 					} else {
@@ -238,6 +249,7 @@ public class ServerThread implements Runnable {
 				board.countProtector.acquire();
 				board.count++;
 				if (board.count == board.playingThreads) {
+					System.out.println(board.count + " Permits released at barrier 1");
 					board.barrier1.release(board.count);
 					board.count = 0;
 				}
@@ -258,7 +270,7 @@ public class ServerThread implements Runnable {
 				 * decide to quit
 				 */
 
-				if (!client_quit) {
+				if (!quit) {
 					String feedback;
 					if (id == -1) {
 						feedback = board.showFugitive();
@@ -329,17 +341,20 @@ public class ServerThread implements Runnable {
 				 * The code is similar. However, the last thread to hit this barrier must also
 				 * permit the moderator to run
 				 */
-				if (!quit) {
+				
 					board.countProtector.acquire();
 					board.count++;
-					if (board.count == board.playingThreads - board.quitThreads) {
+					System.out.println( id + " : " + cmd);
+					if (board.count == board.playingThreads) {
+						// System.out.println(board.playingThreads);
 						board.barrier2.release(board.count);
 						board.moderatorEnabler.release();
+						System.out.println("===================");
 						board.count = 0;
 					}
 					board.countProtector.release();
 					board.barrier2.acquire();
-				}
+				
 
 				if(board.totalThreads==0){
 					board.moderatorEnabler.release();
