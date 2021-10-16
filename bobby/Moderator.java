@@ -56,12 +56,12 @@ public class Moderator implements Runnable{
 				//find out how many newbies
 				int newbies = board.totalThreads-board.playingThreads+board.quitThreads;
 
-				System.out.println("+++++++++++++");
-				System.out.println("Total threads : " + board.totalThreads);
-				System.out.println("Playing threads : " + board.playingThreads);
-				System.out.println("Quit threads : " + board.quitThreads);
-				System.out.println("Newbie threads : " + newbies);
-				System.out.println("+++++++++++++");
+				// System.out.println("+++++++++++++");
+				// System.out.println("Total threads : " + board.totalThreads);
+				// System.out.println("Playing threads : " + board.playingThreads);
+				// System.out.println("Quit threads : " + board.quitThreads);
+				// System.out.println("Newbie threads : " + newbies);
+				// System.out.println("+++++++++++++");
 
 				// -1 3 
 				

@@ -1,5 +1,25 @@
-Welcome. You play Detective 4 in Game 5000:25. You start on square 0. Make a move, and wait for feedback
-Move 7; Detective 4; Play; Detectives on 39, 40, 35, 24, 16
-Move 8; Detective 4; Play; Detectives on 33, 47, 32, 48, 20; Fugitive on 60
-Move 9; Detective 4; Play; Detectives on 38, 39, 32, 51, 16
-Move 10; Detective 4; Victory; Detectives on 6, 37, 34, 51, 24; Fugitive on -1
+Welcome. You play Detective 0 in Game 5000:3. You start on square 0. Make a move, and wait for feedback
+Move 1; Detective 0; Play; Detectives on 2, -1, -1, -1, -1
+Move 2; Detective 0; Play; Detectives on 50, -1, -1, -1, -1
+Move 3; Detective 0; Play; Detectives on 10, -1, -1, -1, -1; Fugitive on 56
+Move 4; Detective 0; Play; Detectives on 26, -1, -1, -1, -1
+Move 5; Detective 0; Play; Detectives on 10, -1, -1, -1, -1
+Move 6; Detective 0; Play; Detectives on 42, -1, -1, -1, -1
+Move 7; Detective 0; Play; Detectives on 10, -1, -1, -1, -1
+Move 8; Detective 0; Play; Detectives on 42, -1, -1, -1, -1; Fugitive on 60
+Move 9; Detective 0; Play; Detectives on 34, -1, -1, -1, -1
+Move 10; Detective 0; Play; Detectives on 37, -1, -1, -1, -1
+Move 11; Detective 0; Play; Detectives on 13, -1, -1, -1, -1
+Move 12; Detective 0; Play; Detectives on 29, -1, -1, -1, -1
+Move 13; Detective 0; Play; Detectives on 27, -1, -1, -1, -1; Fugitive on 20
+Move 14; Detective 0; Play; Detectives on 43, -1, -1, -1, -1
+Move 15; Detective 0; Play; Detectives on 19, -1, -1, -1, -1
+Move 16; Detective 0; Play; Detectives on 3, -1, -1, -1, -1
+Move 17; Detective 0; Play; Detectives on 0, -1, -1, -1, -1
+Move 18; Detective 0; Play; Detectives on 16, -1, -1, -1, -1; Fugitive on 45
+Move 19; Detective 0; Play; Detectives on 56, -1, -1, -1, -1
+Move 20; Detective 0; Play; Detectives on 58, -1, -1, -1, -1
+Move 21; Detective 0; Play; Detectives on 58, -1, -1, -1, -1
+Move 22; Detective 0; Play; Detectives on 2, -1, -1, -1, -1
+Move 23; Detective 0; Play; Detectives on 10, -1, -1, -1, -1; Fugitive on 44
+Move 24; Detective 0; Victory; Detectives on 10, -1, -1, -1, -1; Fugitive on -1

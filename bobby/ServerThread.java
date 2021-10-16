@@ -104,7 +104,7 @@ public class ServerThread implements Runnable {
 				if (this.id == -1 && !this.registered) {
 					board.registration.acquire();
 					board.installPlayer(id);
-					System.out.println("Fugitive registered");
+					// System.out.println("Fugitive registered");
 					this.registered = true;
 					board.moderatorEnabler.release();
 					continue;
@@ -195,7 +195,7 @@ public class ServerThread implements Runnable {
 						if(!board.embryo){
 							board.registration.acquire();
 							board.installPlayer(id);
-							System.out.println("Detective registered");
+							// System.out.println("Detective registered");
 							this.registered = true;
 						}
 						else{
@@ -249,7 +249,7 @@ public class ServerThread implements Runnable {
 				board.countProtector.acquire();
 				board.count++;
 				if (board.count == board.playingThreads) {
-					System.out.println(board.count + " Permits released at barrier 1");
+					// System.out.println(board.count + " Permits released at barrier 1");
 					board.barrier1.release(board.count);
 					board.count = 0;
 				}
@@ -344,12 +344,12 @@ public class ServerThread implements Runnable {
 				
 					board.countProtector.acquire();
 					board.count++;
-					System.out.println( id + " : " + cmd);
+					// System.out.println( id + " : " + cmd);
 					if (board.count == board.playingThreads) {
 						// System.out.println(board.playingThreads);
 						board.barrier2.release(board.count);
 						board.moderatorEnabler.release();
-						System.out.println("===================");
+						// System.out.println("===================");
 						board.count = 0;
 					}
 					board.countProtector.release();
